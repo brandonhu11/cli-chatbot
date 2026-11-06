@@ -1,11 +1,15 @@
-import os
 from dotenv import load_dotenv
+from google import genai
 
 load_dotenv()
 
-api_key = os.getenv("GEMINI_API_KEY")
+client = genai.Client()  
 
-if api_key is None:
-    raise ValueError("No API key found. Check .env file for GEMINI_API_KEY.")
-else:
-    print("API key loaded:", api_key[:6] + "...")
+response = client.models.generate_content(
+    model="models/gemini-3.8-flash",  
+    contents="Tell me a joke",
+)
+
+print(response.text)
+print("---")
+print(response.usage_metadata)
