@@ -5,11 +5,18 @@ load_dotenv()
 
 client = genai.Client()  
 
+while True:
+    name = input("What's your name? ")
+
+    if name.lower() == "quit":
+        print("Bye!")
+        break
+
+    print("Hi " + name + "!")
+
 response = client.models.generate_content(
     model="models/gemini-3.8-flash",  
     contents="Tell me a joke",
 )
 
-print(response.text)
-print("---")
-print(response.usage_metadata)
+print("Bot: ", response.text)
